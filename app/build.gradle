@@ -3,13 +3,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdk 34
+
+    namespace "com.viliussutkus89.relinkersharedstl"
 
     defaultConfig {
         applicationId "com.viliussutkus89.relinkersharedstl"
         minSdkVersion 16
-        targetSdkVersion 30
+        targetSdk 34
+
         versionCode 1
         versionName "1.0"
 
@@ -31,22 +33,20 @@ android {
     externalNativeBuild {
         cmake {
             path file('src/main/cpp/CMakeLists.txt')
-            version '3.10.2'
+            version '3.22.1'
         }
     }
     buildFeatures {
         viewBinding true
     }
+    ndkVersion '23.2.8568313'
 }
 
 dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.getkeepsafe.relinker:relinker:1.4.5'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    implementation 'com.getkeepsafe.relinker:relinker:1.4.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 }

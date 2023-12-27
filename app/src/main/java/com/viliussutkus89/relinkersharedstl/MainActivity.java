@@ -1,5 +1,6 @@
 package com.viliussutkus89.relinkersharedstl;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -7,31 +8,31 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.getkeepsafe.relinker.ReLinker;
+import com.getkeepsafe.relinker.ReLinkerInstance;
 import com.viliussutkus89.relinkersharedstl.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Used to load the 'native-lib' library on application startup.
-//    static {
-//        System.loadLibrary("c++_shared");
-//        System.loadLibrary("native-lib");
-//    }
-
     private ActivityMainBinding binding;
 
-    private ReLinker.Logger logcatLogger = new ReLinker.Logger() {
+    private static final ReLinker.Logger logcatLogger = new ReLinker.Logger() {
         @Override
         public void log(String message) {
             Log.d("---ReLinker", message);
         }
     };
 
+    public static void loadLibrary(Context applicationCtx) {
+        ReLinkerInstance reLinkerInstance = ReLinker.recursively().log(logcatLogger);
+//        reLinkerInstance.loadLibrary(applicationCtx, "c++_shared");
+        reLinkerInstance.loadLibrary(applicationCtx, "native-lib");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        System.loadLibrary("c++_shared");
-        ReLinker.recursively().log(logcatLogger).loadLibrary(getApplicationContext(), "native-lib");
+        loadLibrary(getApplicationContext());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
