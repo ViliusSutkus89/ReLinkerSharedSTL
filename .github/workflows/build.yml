@@ -57,4 +57,9 @@ jobs:
           target: ${{ matrix.api-type-target }}
           sdcard-path-or-size: 1G
           disk-size: 8G
-          script: ./gradlew connectedCheck
+          script: |
+            adb logcat > logcat.txt &
+            ./gradlew connectedCheck
+
+      - run: cat logcat.txt
+        if: always()
