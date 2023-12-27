@@ -29,24 +29,11 @@ on:
       - '.github/**'
       - '!.github/workflows/build.yml'
 
-permissions:
-  actions: none
-  checks: none
-  contents: none
-  deployments: none
-  issues: none
-  packages: none
-  pull-requests: none
-  repository-projects: none
-  security-events: none
-  statuses: none
-
 jobs:
   instrumentedTests-default-target:
     # Only macos VMs are available with exposed CPU extensions to run hardware accelerated emulator
     runs-on: macos-13
     name: android-${{ matrix.api-level }} on ${{ matrix.arch }} (${{ matrix.api-type-target }})
-    needs: build
     strategy:
       fail-fast: false
       matrix:
